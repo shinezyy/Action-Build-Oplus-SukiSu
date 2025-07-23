@@ -200,7 +200,7 @@ jobs:
         run: df -h
 
       - name: Maximize Build Space
-        uses: easimon/maximize-build-space@master
+        uses: shinezyy/maximize-build-space@master
         with:
           root-reserve-mb: 8192
           temp-reserve-mb: 2048
@@ -702,7 +702,6 @@ jobs:
           export PATH="$GITHUB_WORKSPACE/kernel_workspace/kernel_platform/$CLANG_DIR/clang/host/linux-x86/$CLANG_PATH/bin:$PATH"
           export PATH="/usr/lib/ccache:$PATH"
           export CC="ccache clang"
-          sudo apt install -y libelf-dev ccache
           cd kernel_workspace/kernel_platform/common
           MAKE_ARGS="LLVM=1 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- \
             RUSTC=../../prebuilts/rust/linux-x86/1.73.0b/bin/rustc \
@@ -868,7 +867,6 @@ jobs:
         id: zram_find
         run: |
           set -e
-          sudo apt install -y unzip
           curl -s https://api.github.com/repos/FurLC/ZRAM-Module/releases/latest | \
             grep "browser_download_url" | grep "ZRAM-Module-.*\.zip" | cut -d '"' -f 4 | xargs wget -N
           unzip "$(ls -t ZRAM-Module-*.zip | head -1)" -d ZRAM-Module
